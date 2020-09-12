@@ -1,9 +1,9 @@
-const verifySignUp = require('./verifySignUp');
-const authJwt = require('./verifyJwtToken');
+const verifySignUp = require(__dirname + "/verifySignUp");
+const authJwt = require(__dirname + "/verifyJwtToken");
  
 module.exports = function(app) {
  
-    const controller = require('../controller/controller.js');
+    const controller = require(__dirname + "/../controllers/controller.js");
  
   app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
   

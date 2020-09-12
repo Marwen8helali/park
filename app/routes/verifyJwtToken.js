@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config-auth/config.js');
 //const db = require('../config/db.config.js');
 //const db = require("../app/models/db.js");
-const db = require(__dirname + "/../models/db.js");
+const db = require(__dirname +  "/../models/db.js");
 const Role = db.role;
 const User = db.user;
  

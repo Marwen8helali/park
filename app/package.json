@@ -17,6 +17,7 @@
     "mysql2": "^2.1.0",
     "sequelize": "^4.39.0",
     "jsonwebtoken": "^7.4.2",
-    "cors": "^2.8.4"
+    "cors": "^2.8.4",
+    "bcryptjs" :"^2.4.3"
   }
 }

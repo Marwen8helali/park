@@ -7,7 +7,7 @@ const Role = db.role;
 const Op = db.Sequelize.Op;
  
 var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+var bcrypt = require(__dirname +"/../node_modules/bcryptjs/bcryptjs");
  
 exports.signup = (req, res) => {
   // Save User to Database
