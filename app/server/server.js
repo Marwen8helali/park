@@ -11,6 +11,8 @@ const port = process.env.PORT || 9000;
 
 app.use(bodyParser.json());
 
+app.use(cors({origin: 'http://localhost:9001'}))
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -22,7 +22,7 @@ services:
     links:
       - mysql
     ports:
-      - "9001:9000"
+      - "9002:9000"
     entrypoint: /application/start_application.sh
     env_file: ./.env
     environment:
@@ -50,3 +50,24 @@ services:
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: admin
+
+  park-app:
+    container_name: park-app
+    build:
+      context: ./park-app
+      dockerfile: Dockerfile
+    image: react
+    volumes:
+      - ./park-app:/usr/src/app/
+    links:
+      - app
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+  
+
+   
+
+        
+    
