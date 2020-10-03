@@ -1,32 +1,34 @@
 version: "3.1"
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "8000:80"
-      - "443"
-    volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default
-      - ./docker/nginx/nginx.conf:/etc/nginx/sites-available/default
-    links:
-      - app
-    env_file: ./.env
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    ports:
+#      - "8000:80"
+#      - "443"
+#    volumes:
+#      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default
+#      - ./docker/nginx/nginx.conf:/etc/nginx/sites-available/default
+#    links:
+#      - front-app
+#    env_file: ./.env
 
-  app:
-    image: node:latest
-    container_name: my-app
-    working_dir: /application
+  serverapp:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
     volumes:
       - ./app:/application
+      - /application/node_modules
     links:
       - mysql
     ports:
-      - "9002:9000"
-    entrypoint: /application/start_application.sh
+      - "9000:9000"
     env_file: ./.env
     environment:
       "NODE_ENV": "development"
+    tty: true
+    stdin_open: true
 
   mysql:
     env_file: ./.env
@@ -38,8 +40,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      "MYSQL_DATABASE": "${MYSQL_DATABASE}"
-      "MYSQL_ROOT_PASSWORD": "${MYSQL_ROOT_PASSWORD}"
+      "MYSQL_DATABASE": "admin"
+      "MYSQL_ROOT_PASSWORD": "admin"
 
   phpmyadmin:
     links:
@@ -51,23 +53,16 @@ services:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: admin
 
-  park-app:
-    container_name: park-app
+  frontapp:
     build:
       context: ./park-app
       dockerfile: Dockerfile
-    image: react
     volumes:
-      - ./park-app:/usr/src/app/
+      - ./park-app:/application
+      - /application/node_modules
     links:
-      - app
+      - serverapp
     ports:
       - "3000:3000"
     tty: true
     stdin_open: true
-  
-
-   
-
-        
-    

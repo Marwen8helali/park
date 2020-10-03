@@ -13,7 +13,7 @@ RUN npm install
 
 # copy other project files
 COPY . .
-EXPOSE 3000
+EXPOSE 9000
 
 # build the folder
 CMD [ "npm", "run", "start" ]

@@ -2,9 +2,9 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function(app) {
   app.use(
-    '/api',
+    '/api/auth/signup',
     createProxyMiddleware({
-      target: 'app',
+      target: 'http://serverapp:9000',
       changeOrigin: true
     })
   );
