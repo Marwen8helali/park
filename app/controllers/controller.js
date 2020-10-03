@@ -3,16 +3,16 @@ const db = require(__dirname +"/../models/db.js")
 const config = require('../config-auth/config.js');
 const User = db.user;
 const Role = db.role;
- 
+
 const Op = db.Sequelize.Op;
- 
+
 var jwt = require('jsonwebtoken');
-var bcrypt = require(__dirname +"/../node_modules/bcryptjs/bcryptjs");
- 
+var bcrypt = require('bcryptjs');
+
 exports.signup = (req, res) => {
   // Save User to Database
   console.log("Processing func -> SignUp");
-  
+
   User.create({
     name: req.body.name,
     username: req.body.username,
@@ -36,10 +36,10 @@ exports.signup = (req, res) => {
     res.status(500).send("Fail! Error -> " + err);
   })
 }
- 
+
 exports.signin = (req, res) => {
   console.log("Sign-In");
-  
+
   User.findOne({
     where: {
       username: req.body.username
@@ -48,23 +48,23 @@ exports.signin = (req, res) => {
     if (!user) {
       return res.status(404).send('User Not Found.');
     }
- 
+
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     if (!passwordIsValid) {
       return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
     }
-    
+
     var token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
     });
-    
+
     res.status(200).send({ auth: true, accessToken: token });
-    
+
   }).catch(err => {
     res.status(500).send('Error -> ' + err);
   });
 }
- 
+
 exports.userContent = (req, res) => {
   User.findOne({
     where: {id: req.userId},
@@ -88,7 +88,7 @@ exports.userContent = (req, res) => {
     });
   })
 }
- 
+
 exports.adminBoard = (req, res) => {
   User.findOne({
     where: {id: req.userId},
@@ -112,7 +112,7 @@ exports.adminBoard = (req, res) => {
     });
   })
 }
- 
+
 exports.managementBoard = (req, res) => {
   User.findOne({
     where: {id: req.userId},

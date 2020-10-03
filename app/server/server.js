@@ -11,7 +11,7 @@ const port = process.env.PORT || 9000;
 
 app.use(bodyParser.json());
 
-app.use(cors({origin: 'http://localhost:9001'}))
+app.use(cors({origin: 'http://localhost:9000'}))
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,9 +26,9 @@ app.get("/", (req, res) => {
 //require(__dirname + "/../routes/Users.routes.js")(app);
 
 require(__dirname + "/../routes/router.js")(app);
- 
+
 const db = require(__dirname + "/../models/db.js");
- 
+
 const Role = db.role;
 
 // force: true will drop the table if it already exists
@@ -48,12 +48,12 @@ function initial(){
     id: 1,
     name: "USER"
   });
-  
+
   Role.create({
     id: 2,
     name: "ADMIN"
   });
-  
+
   Role.create({
     id: 3,
     name: "PM"
