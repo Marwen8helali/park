@@ -14,9 +14,7 @@ services:
 #    env_file: ./.env
 
   serverapp:
-    build:
-      context: ./app
-      dockerfile: Dockerfile
+    build: ./app
     volumes:
       - ./app:/application
       - /application/node_modules
@@ -24,9 +22,6 @@ services:
       - mysql
     ports:
       - "9000:9000"
-    env_file: ./.env
-    environment:
-      "NODE_ENV": "development"
     tty: true
     stdin_open: true
 
@@ -54,9 +49,7 @@ services:
       MYSQL_ROOT_PASSWORD: admin
 
   frontapp:
-    build:
-      context: ./park-app
-      dockerfile: Dockerfile
+    build: ./park-app
     volumes:
       - ./park-app:/application
       - /application/node_modules

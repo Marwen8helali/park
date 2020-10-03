@@ -9,6 +9,7 @@ class Register extends Component {
       last_name: '',
       email: '',
       password: '',
+      roles: ['USER'],
       errors: {}
     }
 
@@ -26,7 +27,8 @@ class Register extends Component {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      roles: this.state.roles
     }
 
     register(newUser).then(res => {
